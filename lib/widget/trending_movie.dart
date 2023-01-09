@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie/widget/heading_text.dart';
 
 class TrendingWidget extends StatelessWidget {
-  const TrendingWidget({super.key, required this.imageUrl});
+  const TrendingWidget({super.key, required this.imageUrl, required this.name});
   final String imageUrl;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,9 @@ class TrendingWidget extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                image: DecorationImage(image: NetworkImage(imageUrl)),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: CachedNetworkImageProvider(imageUrl)),
                 color: Colors.grey[400]),
             height: deviceHeight * 0.22,
             width: deviceWidth * 0.35,
@@ -25,9 +29,12 @@ class TrendingWidget extends StatelessWidget {
           SizedBox(
             height: deviceHeight * 0.01,
           ),
-          HeadingText(
-            text: "Doctor Strange",
-            size: deviceHeight * 0.019,
+          SizedBox(
+            width: deviceWidth * 0.35,
+            child: HeadingText(
+              text: name,
+              size: deviceHeight * 0.019,
+            ),
           )
         ],
       ),

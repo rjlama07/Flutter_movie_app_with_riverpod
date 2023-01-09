@@ -50,7 +50,7 @@ class Results {
   String? name;
   String? originalName;
   String? firstAirDate;
-  List<String>? originCountry;
+  List<dynamic>? originCountry;
 
   Results(
       {this.adult,
@@ -92,7 +92,7 @@ class Results {
     name = json['name'];
     originalName = json['original_name'];
     firstAirDate = json['first_air_date'];
-    originCountry = json['origin_country'].cast<String>();
+    originCountry = json['origin_country'];
   }
 
   Map<String, dynamic> toJson() {
