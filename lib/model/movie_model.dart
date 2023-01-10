@@ -1,13 +1,12 @@
-class TrendingMovieModel {
+class MovieModel {
   int? page;
   List<Results>? results;
   int? totalPages;
   int? totalResults;
 
-  TrendingMovieModel(
-      {this.page, this.results, this.totalPages, this.totalResults});
+  MovieModel({this.page, this.results, this.totalPages, this.totalResults});
 
-  TrendingMovieModel.fromJson(Map<String, dynamic> json) {
+  MovieModel.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     if (json['results'] != null) {
       results = <Results>[];
@@ -45,7 +44,7 @@ class Results {
   double? popularity;
   String? releaseDate;
   bool? video;
-  double? voteAverage;
+  num? voteAverage;
   int? voteCount;
   String? name;
   String? originalName;

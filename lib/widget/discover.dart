@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie/data_provider/data_provider.dart';
-
 import 'package:movie/resources/constrains.dart';
 import 'package:movie/screens/moviedetails.dart';
 import 'package:movie/widget/shimmer_effect.dart';

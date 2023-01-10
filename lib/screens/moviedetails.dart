@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movie/model/trending_movie_model.dart';
+import 'package:movie/model/movie_model.dart';
 import 'package:movie/resources/constrains.dart';
 import 'package:movie/widget/heading_text.dart';
 

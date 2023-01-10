@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie/data_provider/data_provider.dart';
-import 'package:movie/model/trending_movie_model.dart';
 import 'package:movie/resources/constrains.dart';
 import 'package:movie/screens/moviedetails.dart';
 import 'package:movie/widget/shimmer_effect.dart';
@@ -18,17 +17,14 @@ class TrendingListview extends StatelessWidget {
       final trending = ref.watch(trendigDataProvider);
       return trending.when(
           data: (data) {
-            TrendingMovieModel trendingMovieModel = data;
-
             return SizedBox(
               height: deviceHeight * 0.28,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  if (trendingMovieModel.results![index].title.toString() ==
-                      "null") {
-                    trendingMovieModel.results![index].title = " ";
+                  if (data.results![index].title.toString() == "null") {
+                    data.results![index].title = " ";
                   }
                   return InkWell(
                     onTap: () {
@@ -36,19 +32,15 @@ class TrendingListview extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MovieDetails(
-                                    results: trendingMovieModel.results![index],
+                                    results: data.results![index],
                                   )));
                     },
                     child: TrendingWidget(
-                        name: trendingMovieModel.results![index].title
-                                    .toString() ==
-                                " "
-                            ? "Unknown"
-                            : trendingMovieModel.results![index].originalTitle
-                                .toString(),
+                        name: data.results![index].title.toString() == " "
+                            ? "?"
+                            : data.results![index].originalTitle.toString(),
                         imageUrl: imageApi +
-                            trendingMovieModel.results![index].backdropPath
-                                .toString()),
+                            data.results![index].backdropPath.toString()),
                   );
                 },
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie/widget/discover.dart';
 import 'package:movie/widget/heading_text.dart';
-import 'package:movie/widget/trending_movie.dart';
+
 import 'package:movie/widget/trending_movie_listview.dart';
 
 class HomePage extends StatelessWidget {
@@ -21,19 +21,19 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const HeadingText(text: "Discover"),
+                SizedBox(
+                  height: deviceHeight * 0.01,
+                ),
+                const Discover(),
+                SizedBox(
+                  height: deviceHeight * 0.01,
+                ),
                 const HeadingText(text: "Trending now"),
                 SizedBox(
                   height: deviceHeight * 0.01,
                 ),
                 const TrendingListview(),
-                SizedBox(
-                  height: deviceHeight * 0.01,
-                ),
-                const HeadingText(text: "Discover"),
-                SizedBox(
-                  height: deviceHeight * 0.01,
-                ),
-                const Discover()
               ],
             ),
           ),
