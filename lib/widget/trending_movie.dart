@@ -18,11 +18,11 @@ class TrendingWidget extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: CachedNetworkImageProvider(imageUrl)),
-                color: Colors.grey[400]),
+              borderRadius: BorderRadius.circular(4),
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: CachedNetworkImageProvider(imageUrl)),
+            ),
             height: deviceHeight * 0.22,
             width: deviceWidth * 0.35,
           ),

@@ -42,7 +42,7 @@ class MovieDetails extends StatelessWidget {
                       image: DecorationImage(
                           fit: BoxFit.cover,
                           image: CachedNetworkImageProvider(
-                              imageApi + results.backdropPath.toString())),
+                              imageApi + results.posterPath.toString())),
                       color: Colors.grey[400]),
                 ),
                 SizedBox(
