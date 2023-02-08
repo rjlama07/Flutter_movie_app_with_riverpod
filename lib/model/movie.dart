@@ -27,6 +27,6 @@ class Movie {
         poster_path: json['poster_path'],
         release_date: json['release_date'],
         title: json['title'],
-        vote_average: json['vote_average']);
+        vote_average: json['vote_average'].toString());
   }
 }

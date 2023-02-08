@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie/screens/popular_movie.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> tabbarItems = const [
+      PopularMovie(),
+      Text("2st"),
+      Text("3st"),
+    ];
+
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -15,7 +22,7 @@ class HomePage extends StatelessWidget {
               Tab(text: 'Top Rated'),
               Tab(text: 'Upcoming'),
             ]),
-            toolbarHeight: 50.h,
+            toolbarHeight: 40.h,
             flexibleSpace: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               height: 50.h,
@@ -28,7 +35,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       Text(
                         'Tmdb Movies',
-                        style: TextStyle(fontSize: 25.sp),
+                        style: TextStyle(fontSize: 35.sp),
                       ),
                       IconButton(
                           onPressed: () {},
@@ -42,6 +49,9 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+          body: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              children: tabbarItems),
         ));
   }
 }
