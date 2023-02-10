@@ -1,44 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:movie/widget/discover.dart';
-import 'package:movie/widget/heading_text.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie/widget/tab_bar_body.dart';
 
-import 'package:movie/widget/trending_movie_listview.dart';
+enum CatagoryType { popular, toprated, upcoimming }
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double deviceHeight = MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).brightness == Brightness.dark
-            ? Colors.black
-            : Colors.white,
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const HeadingText(text: "Discover"),
-                SizedBox(
-                  height: deviceHeight * 0.01,
-                ),
-                const Discover(),
-                SizedBox(
-                  height: deviceHeight * 0.01,
-                ),
-                const HeadingText(text: "Trending now"),
-                SizedBox(
-                  height: deviceHeight * 0.01,
-                ),
-                const TrendingListview(),
-              ],
+    List<Widget> tabbarItems = const [
+      TabBarWidget(
+        catagoryType: CatagoryType.popular,
+      ),
+      TabBarWidget(catagoryType: CatagoryType.toprated),
+      TabBarWidget(catagoryType: CatagoryType.upcoimming),
+    ];
+
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: const TabBar(tabs: [
+              Tab(text: 'Popular'),
+              Tab(text: 'Top Rated'),
+              Tab(text: 'Upcoming'),
+            ]),
+            toolbarHeight: 40.h,
+            flexibleSpace: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              height: 50.h,
+              child: Column(
+                children: [
+                  const Spacer(),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Tmdb Movies',
+                        style: TextStyle(fontSize: 35.sp),
+                      ),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.search,
+                            size: 30,
+                          )),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
+          body: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              children: tabbarItems),
+        ));
   }
 }
