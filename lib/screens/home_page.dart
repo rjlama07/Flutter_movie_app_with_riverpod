@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie/screens/popular_movie.dart';
+import 'package:movie/widget/tab_bar_body.dart';
+
+enum CatagoryType { popular, toprated, upcoimming }
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,9 +10,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> tabbarItems = const [
-      PopularMovie(),
-      Text("2st"),
-      Text("3st"),
+      TabBarWidget(
+        catagoryType: CatagoryType.popular,
+      ),
+      TabBarWidget(catagoryType: CatagoryType.toprated),
+      TabBarWidget(catagoryType: CatagoryType.upcoimming),
     ];
 
     return DefaultTabController(
