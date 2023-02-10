@@ -6,7 +6,8 @@ const String imageApi = 'https://image.tmdb.org/t/p/original';
 //end points
 const String trendingMovieApi = 'trending/all/day';
 const String discoverUrl = 'discover/movie';
-const String popularMovie = "/3/movie/popular";
-const String upComming = "/3/movie/upComming";
+const String popularMovie = "$baseUrl/3/movie/popular";
+const String upComming = "$baseUrl/3/movie/upComming";
+const String topRatedMovie = "$baseUrl/3/movie/top_rateds";
 
 ///API URL PATTERN=baseurl+endpoint+apiKey

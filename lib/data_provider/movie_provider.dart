@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie/resources/constrains.dart';
+
 import 'package:movie/services/movie_services.dart';
 import 'package:movie/services/movie_state.dart';
 
@@ -12,8 +13,7 @@ class PopularMovie extends StateNotifier<MovieState> {
   }
   Future<void> getMovieByCategory() async {
     state = state.copyWith(isLoading: true, isError: false);
-    final resonse = await MovieServices()
-        .getData(api: "https://api.themoviedb.org/3/movie/popular");
+    final resonse = await MovieServices().getData(api: popularMovie, page: 1);
     resonse.fold((l) {
       state = state.copyWith(isError: true, errorMessage: l, isLoading: false);
     }, (r) {
