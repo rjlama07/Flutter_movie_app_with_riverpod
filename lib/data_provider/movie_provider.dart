@@ -45,14 +45,23 @@ class TopRated extends StateNotifier<MovieState> {
     getMovieByCategory();
   }
   Future<void> getMovieByCategory() async {
-    state = state.copyWith(isLoading: true, isError: false);
+    state = state.copyWith(
+        isLoading: state.isLoaded ? false : true, isError: false);
     final resonse = await MovieServices().getData(api: topRatedMovie, page: 1);
     resonse.fold((l) {
       state = state.copyWith(isError: true, errorMessage: l, isLoading: false);
     }, (r) {
       state = state.copyWith(
-          isError: false, errorMessage: "", isLoading: false, movies: r);
+          isError: false,
+          errorMessage: "",
+          isLoading: false,
+          movies: [...state.movies, ...r]);
     });
+  }
+
+  Future<void> loadMore() async {
+    state = state.copyWith(isLoaded: true, page: state.page + 1);
+    getMovieByCategory();
   }
 }
 
@@ -64,14 +73,23 @@ class Upcomming extends StateNotifier<MovieState> {
     getMovieByCategory();
   }
   Future<void> getMovieByCategory() async {
-    state = state.copyWith(isLoading: true, isError: false);
+    state = state.copyWith(
+        isLoading: state.isLoaded ? false : true, isError: false);
     final resonse = await MovieServices().getData(api: upComming, page: 1);
     resonse.fold((l) {
       state = state.copyWith(isError: true, errorMessage: l, isLoading: false);
     }, (r) {
       state = state.copyWith(
-          isError: false, errorMessage: "", isLoading: false, movies: r);
+          isError: false,
+          errorMessage: "",
+          isLoading: false,
+          movies: [...state.movies, ...r]);
     });
+  }
+
+  Future<void> loadMore() async {
+    state = state.copyWith(isLoaded: true, page: state.page + 1);
+    getMovieByCategory();
   }
 }
 

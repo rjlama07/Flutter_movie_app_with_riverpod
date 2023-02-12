@@ -2,8 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:movie/data_provider/search_provider.dart';
-import 'package:movie/widget/no_reasult.dart';
+import 'package:movie/screens/details_page/details_page.dart';
 import 'package:movie/widget/shimmer_effect.dart';
 
 import '../../resources/constrains.dart';
@@ -59,14 +60,22 @@ class SearchPage extends ConsumerWidget {
                               itemBuilder: (context, index) {
                                 return searchdData.movies[index].poster_path !=
                                         ""
-                                    ? CachedNetworkImage(
-                                        placeholder: (context, url) => Center(
-                                                child: SpinKitFadingCube(
-                                              color: Colors.redAccent
-                                                  .withOpacity(0.2),
-                                            )),
-                                        imageUrl:
-                                            "$imageApi${searchdData.movies[index].poster_path}")
+                                    ? InkWell(
+                                        onTap: () {
+                                          Get.to(DetailPage(
+                                              movie:
+                                                  searchdData.movies[index]));
+                                        },
+                                        child: CachedNetworkImage(
+                                            placeholder: (context, url) =>
+                                                Center(
+                                                    child: SpinKitFadingCube(
+                                                  color: Colors.redAccent
+                                                      .withOpacity(0.2),
+                                                )),
+                                            imageUrl:
+                                                "$imageApi${searchdData.movies[index].poster_path}"),
+                                      )
                                     : Container();
                               },
                             ))

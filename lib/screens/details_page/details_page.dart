@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie/data_provider/video_provider.dart';
 import 'package:pod_player/pod_player.dart';
 
@@ -12,11 +13,40 @@ class DetailPage extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final videoData = ref.watch(videoProvider(movie.id.toString()));
 
-    return Container(
-      child: videoData.when(
-        data: (data) => MovieImage(keys: data[0]),
-        error: (error, stackTrace) => Container(),
-        loading: () => Container(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(movie.title),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 120.h,
+            width: double.infinity,
+            child: videoData.when(
+              data: (data) => MovieImage(keys: data[0]),
+              error: (error, stackTrace) => Container(),
+              loading: () => Container(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  movie.title,
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 35.sp),
+                ),
+                SizedBox(
+                  height: 4.h,
+                ),
+                Text(movie.overview)
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

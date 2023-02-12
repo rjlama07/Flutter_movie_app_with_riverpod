@@ -16,11 +16,12 @@ class TabBarWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final movieData = ref.watch(catagoryType == CatagoryType.popular
+    final provider = catagoryType == CatagoryType.popular
         ? popularProvider
         : catagoryType == CatagoryType.toprated
             ? topRatedProvider
-            : upcommingProvider);
+            : upcommingProvider;
+    final movieData = ref.watch(provider);
     return Scaffold(
         body: movieData.isLoading
             ? const ShimmerContainer()
@@ -36,7 +37,15 @@ class TabBarWidget extends ConsumerWidget {
                         final before = onNotifiaction.metrics.extentBefore;
                         final max = onNotifiaction.metrics.maxScrollExtent;
                         if (max == before) {
-                          ref.read(popularProvider.notifier).loadMore();
+                          catagoryType == CatagoryType.popular
+                              ? ref.read(popularProvider.notifier).loadMore()
+                              : catagoryType == CatagoryType.toprated
+                                  ? ref
+                                      .read(topRatedProvider.notifier)
+                                      .loadMore()
+                                  : ref
+                                      .read(upcommingProvider.notifier)
+                                      .loadMore();
                         }
                         return true;
                       },

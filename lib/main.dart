@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie/screens/home_page.dart';
 import 'package:get/get.dart';
-import 'package:movie/widget/shimmer_effect.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 }
 
 class MyApp extends StatelessWidget {
