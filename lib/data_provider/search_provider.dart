@@ -3,8 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/movie_services.dart';
 import '../services/movie_state.dart';
 
-final defaultState =
-    MovieState(errorMessage: "", isError: false, isLoading: false, movies: []);
+final defaultState = MovieState(
+    errorMessage: "",
+    isError: false,
+    isLoading: false,
+    movies: [],
+    isLoaded: false,
+    page: 1);
 
 class Search extends StateNotifier<MovieState> {
   Search(super.state);

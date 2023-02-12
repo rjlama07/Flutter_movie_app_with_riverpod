@@ -33,7 +33,9 @@ class TabBarWidget extends ConsumerWidget {
                       onNotification: (ScrollEndNotification onNotifiaction) {
                         final before = onNotifiaction.metrics.extentBefore;
                         final max = onNotifiaction.metrics.maxScrollExtent;
-                        if (max == before) {}
+                        if (max == before) {
+                          ref.read(popularProvider.notifier).loadMore();
+                        }
                         return true;
                       },
                       child: GridView.builder(

@@ -6,8 +6,6 @@ class ShimmerContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double deviceHeight = MediaQuery.of(context).size.height;
-    double deviceWidth = MediaQuery.of(context).size.width;
     return Shimmer.fromColors(
         baseColor: Colors.grey.shade700,
         highlightColor: Colors.grey.shade100,

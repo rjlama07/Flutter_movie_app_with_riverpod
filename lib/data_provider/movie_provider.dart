@@ -3,22 +3,34 @@ import 'package:movie/resources/constrains.dart';
 import 'package:movie/services/movie_services.dart';
 import 'package:movie/services/movie_state.dart';
 
-final defaultState =
-    MovieState(errorMessage: "", isError: false, isLoading: false, movies: []);
+final defaultState = MovieState(
+    errorMessage: "",
+    isError: false,
+    isLoading: false,
+    movies: [],
+    isLoaded: false,
+    page: 1);
 
 class PopularMovie extends StateNotifier<MovieState> {
   PopularMovie(super.state) {
     getMovieByCategory();
   }
   Future<void> getMovieByCategory() async {
-    state = state.copyWith(isLoading: true, isError: false);
-    final resonse = await MovieServices().getData(api: popularMovie, page: 1);
+    state = state.copyWith(
+        isLoading: state.isLoaded ? false : true, isError: false);
+    final resonse =
+        await MovieServices().getData(api: popularMovie, page: state.page);
     resonse.fold((l) {
       state = state.copyWith(isError: true, errorMessage: l, isLoading: false);
     }, (r) {
       state = state.copyWith(
           isError: false, errorMessage: "", isLoading: false, movies: r);
     });
+  }
+
+  Future<void> loadMore() async {
+    state = state.copyWith(isLoaded: true, page: state.page + 1);
+    getMovieByCategory();
   }
 }
 

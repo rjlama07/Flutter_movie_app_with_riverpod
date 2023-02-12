@@ -48,7 +48,7 @@ class SearchPage extends ConsumerWidget {
                     ? const ShimmerContainer()
                     : searchdData.isError
                         ? Center(child: Text(searchdData.errorMessage))
-                        : !searchdData.movies.isNotEmpty
+                        : searchdData.movies.isNotEmpty
                             ? GridView.builder(
                                 itemCount: searchdData.movies.length,
                                 gridDelegate:
