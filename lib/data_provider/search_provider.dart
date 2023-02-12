@@ -8,7 +8,7 @@ final defaultState =
 
 class Search extends StateNotifier<MovieState> {
   Search(super.state);
-  Future<void> getMovieByCategory(String search) async {
+  Future<void> searchMovie(String search) async {
     state = state.copyWith(isLoading: true, isError: false);
     final resonse = await MovieServices().getSearchItems(search: search);
     resonse.fold((l) {
@@ -20,5 +20,5 @@ class Search extends StateNotifier<MovieState> {
   }
 }
 
-final popularProvider =
+final searchProvider =
     StateNotifierProvider<Search, MovieState>((ref) => Search(defaultState));

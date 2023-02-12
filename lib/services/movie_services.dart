@@ -23,9 +23,8 @@ class MovieServices {
   Future<Either<String, List<Movie>>> getSearchItems(
       {required String search}) async {
     try {
-      final response = await dio.get(searchMovie, queryParameters: {
-        'api_key': apiKey,
-      });
+      final response = await dio.get(searchMovie,
+          queryParameters: {'api_key': apiKey, 'query': search});
       final data = (response.data['results'] as List)
           .map((e) => Movie.fromJson(e))
           .toList();

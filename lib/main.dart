@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie/screens/home_page.dart';
 import 'package:get/get.dart';
+import 'package:movie/widget/shimmer_effect.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
             primarySwatch: Colors.blue,
             appBarTheme:
-                const AppBarTheme().copyWith(foregroundColor: Colors.black)),
+                const AppBarTheme().copyWith(foregroundColor: Colors.white)),
         home: const HomePage(),
       ),
     );

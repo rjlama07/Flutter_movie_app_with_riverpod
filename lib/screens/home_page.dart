@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie/screens/search_page/searchpage.dart';
 import 'package:movie/widget/tab_bar_body.dart';
+import 'package:get/get.dart';
 
 enum CatagoryType { popular, toprated, upcoimming }
 
@@ -42,7 +44,9 @@ class HomePage extends StatelessWidget {
                         style: TextStyle(fontSize: 35.sp),
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(const SearchPage());
+                          },
                           icon: const Icon(
                             Icons.search,
                             size: 30,
