@@ -9,5 +9,7 @@ const String discoverUrl = 'discover/movie';
 const String popularMovie = "$baseUrl/3/movie/popular";
 const String upComming = "$baseUrl/3/movie/upcoming";
 const String topRatedMovie = "$baseUrl/3/movie/top_rated";
+const String searchMovie = "$baseUrl/3/search/movie";
+
 
 ///API URL PATTERN=baseurl+endpoint+apiKey
