@@ -44,36 +44,32 @@ class SearchPage extends ConsumerWidget {
                       },
                       child: const Text("Search"))),
               Expanded(
-                child: searchdData.isLoading
-                    ? const ShimmerContainer()
-                    : searchdData.isError
-                        ? Center(child: Text(searchdData.errorMessage))
-                        : searchdData.movies.isNotEmpty
-                            ? GridView.builder(
-                                itemCount: searchdData.movies.length,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                        childAspectRatio: 2 / 3,
-                                        crossAxisSpacing: 5,
-                                        mainAxisSpacing: 5),
-                                itemBuilder: (context, index) {
-                                  return searchdData
-                                              .movies[index].poster_path !=
-                                          ""
-                                      ? CachedNetworkImage(
-                                          placeholder: (context, url) => Center(
-                                                  child: SpinKitFadingCube(
-                                                color: Colors.redAccent
-                                                    .withOpacity(0.2),
-                                              )),
-                                          imageUrl:
-                                              "$imageApi${searchdData.movies[index].poster_path}")
-                                      : Container();
-                                },
-                              )
-                            : const Center(child: NoReasult()),
-              )
+                  child: searchdData.isLoading
+                      ? const ShimmerContainer()
+                      : searchdData.isError
+                          ? Center(child: Text(searchdData.errorMessage))
+                          : GridView.builder(
+                              itemCount: searchdData.movies.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      childAspectRatio: 2 / 3,
+                                      crossAxisSpacing: 5,
+                                      mainAxisSpacing: 5),
+                              itemBuilder: (context, index) {
+                                return searchdData.movies[index].poster_path !=
+                                        ""
+                                    ? CachedNetworkImage(
+                                        placeholder: (context, url) => Center(
+                                                child: SpinKitFadingCube(
+                                              color: Colors.redAccent
+                                                  .withOpacity(0.2),
+                                            )),
+                                        imageUrl:
+                                            "$imageApi${searchdData.movies[index].poster_path}")
+                                    : Container();
+                              },
+                            ))
             ],
           ),
         ));

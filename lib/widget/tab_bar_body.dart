@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:movie/data_provider/movie_provider.dart';
 import 'package:movie/resources/constrains.dart';
+import 'package:movie/screens/details_page/details_page.dart';
 import 'package:movie/screens/home_page.dart';
 import 'package:movie/widget/shimmer_effect.dart';
 
@@ -47,13 +49,19 @@ class TabBarWidget extends ConsumerWidget {
                                 crossAxisSpacing: 5,
                                 mainAxisSpacing: 5),
                         itemBuilder: (context, index) {
-                          return CachedNetworkImage(
-                              placeholder: (context, url) => Center(
-                                      child: SpinKitFadingCube(
-                                    color: Colors.redAccent.withOpacity(0.2),
-                                  )),
-                              imageUrl:
-                                  "$imageApi${movieData.movies[index].poster_path}");
+                          return InkWell(
+                            onTap: () {
+                              Get.to(
+                                  DetailPage(movie: movieData.movies[index]));
+                            },
+                            child: CachedNetworkImage(
+                                placeholder: (context, url) => Center(
+                                        child: SpinKitFadingCube(
+                                      color: Colors.redAccent.withOpacity(0.2),
+                                    )),
+                                imageUrl:
+                                    "$imageApi${movieData.movies[index].poster_path}"),
+                          );
                         },
                       ),
                     ),

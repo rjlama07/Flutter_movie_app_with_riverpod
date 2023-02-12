@@ -274,7 +274,7 @@ packages:
       name: lottie
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "1.4.3"
   matcher:
     dependency: transitive
     description:
@@ -393,7 +393,7 @@ packages:
       name: pod_player
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.6"
+    version: "0.1.0"
   pointycastle:
     dependency: transitive
     description:

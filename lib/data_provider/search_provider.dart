@@ -25,5 +25,5 @@ class Search extends StateNotifier<MovieState> {
   }
 }
 
-final searchProvider =
-    StateNotifierProvider<Search, MovieState>((ref) => Search(defaultState));
+final searchProvider = StateNotifierProvider.autoDispose<Search, MovieState>(
+    (ref) => Search(defaultState));

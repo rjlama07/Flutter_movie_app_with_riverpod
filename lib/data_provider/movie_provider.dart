@@ -24,7 +24,10 @@ class PopularMovie extends StateNotifier<MovieState> {
       state = state.copyWith(isError: true, errorMessage: l, isLoading: false);
     }, (r) {
       state = state.copyWith(
-          isError: false, errorMessage: "", isLoading: false, movies: r);
+          isError: false,
+          errorMessage: "",
+          isLoading: false,
+          movies: [...state.movies, ...r]);
     });
   }
 
