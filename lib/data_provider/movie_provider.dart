@@ -47,7 +47,8 @@ class TopRated extends StateNotifier<MovieState> {
   Future<void> getMovieByCategory() async {
     state = state.copyWith(
         isLoading: state.isLoaded ? false : true, isError: false);
-    final resonse = await MovieServices().getData(api: topRatedMovie, page: 1);
+    final resonse =
+        await MovieServices().getData(api: topRatedMovie, page: state.page);
     resonse.fold((l) {
       state = state.copyWith(isError: true, errorMessage: l, isLoading: false);
     }, (r) {
@@ -75,7 +76,8 @@ class Upcomming extends StateNotifier<MovieState> {
   Future<void> getMovieByCategory() async {
     state = state.copyWith(
         isLoading: state.isLoaded ? false : true, isError: false);
-    final resonse = await MovieServices().getData(api: upComming, page: 1);
+    final resonse =
+        await MovieServices().getData(api: upComming, page: state.page);
     resonse.fold((l) {
       state = state.copyWith(isError: true, errorMessage: l, isLoading: false);
     }, (r) {
@@ -94,4 +96,33 @@ class Upcomming extends StateNotifier<MovieState> {
 }
 
 final upcommingProvider = StateNotifierProvider<Upcomming, MovieState>(
+    (ref) => Upcomming(defaultState));
+
+class TrendingMovie extends StateNotifier<MovieState> {
+  TrendingMovie(super.state) {
+    getMovieByCategory();
+  }
+  Future<void> getMovieByCategory() async {
+    state = state.copyWith(
+        isLoading: state.isLoaded ? false : true, isError: false);
+    final resonse =
+        await MovieServices().getData(api: upComming, page: state.page);
+    resonse.fold((l) {
+      state = state.copyWith(isError: true, errorMessage: l, isLoading: false);
+    }, (r) {
+      state = state.copyWith(
+          isError: false,
+          errorMessage: "",
+          isLoading: false,
+          movies: [...state.movies, ...r]);
+    });
+  }
+
+  Future<void> loadMore() async {
+    state = state.copyWith(isLoaded: true, page: state.page + 1);
+    getMovieByCategory();
+  }
+}
+
+final trendingMovieProvider = StateNotifierProvider<Upcomming, MovieState>(
     (ref) => Upcomming(defaultState));

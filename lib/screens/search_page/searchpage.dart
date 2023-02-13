@@ -58,25 +58,28 @@ class SearchPage extends ConsumerWidget {
                                       crossAxisSpacing: 5,
                                       mainAxisSpacing: 5),
                               itemBuilder: (context, index) {
-                                return searchdData.movies[index].poster_path !=
-                                        ""
-                                    ? InkWell(
-                                        onTap: () {
-                                          Get.to(DetailPage(
-                                              movie:
-                                                  searchdData.movies[index]));
-                                        },
-                                        child: CachedNetworkImage(
-                                            placeholder: (context, url) =>
-                                                Center(
-                                                    child: SpinKitFadingCube(
-                                                  color: Colors.redAccent
-                                                      .withOpacity(0.2),
-                                                )),
-                                            imageUrl:
-                                                "$imageApi${searchdData.movies[index].poster_path}"),
-                                      )
-                                    : Container();
+                                return InkWell(
+                                  onTap: () {
+                                    Get.to(DetailPage(
+                                        movie: searchdData.movies[index]));
+                                  },
+                                  child: searchdData
+                                              .movies[index].poster_path !=
+                                          ""
+                                      ? CachedNetworkImage(
+                                          errorWidget: (context, url, error) =>
+                                              Image.asset(
+                                                  "assets/images/launch_icon.png"),
+                                          placeholder: (context, url) => Center(
+                                                  child: SpinKitFadingCube(
+                                                color: Colors.redAccent
+                                                    .withOpacity(0.2),
+                                              )),
+                                          imageUrl:
+                                              "$imageApi${searchdData.movies[index].poster_path}")
+                                      : Image.asset(
+                                          "assets/images/launch_icon.png"),
+                                );
                               },
                             ))
             ],

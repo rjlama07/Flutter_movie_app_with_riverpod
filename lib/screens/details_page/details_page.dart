@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/route_manager.dart';
+import 'package:movie/data_provider/movie_provider.dart';
 import 'package:movie/data_provider/video_provider.dart';
+import 'package:movie/resources/constrains.dart';
 import 'package:pod_player/pod_player.dart';
 
 import '../../model/movie.dart';
@@ -12,7 +15,7 @@ class DetailPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final videoData = ref.watch(videoProvider(movie.id.toString()));
-
+    final trendingData = ref.watch(trendingMovieProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(movie.title),
@@ -42,7 +45,59 @@ class DetailPage extends ConsumerWidget {
                 SizedBox(
                   height: 4.h,
                 ),
-                Text(movie.overview)
+                Text(movie.overview),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Text(
+                  "Trending Movies",
+                  style:
+                      TextStyle(fontSize: 40.sp, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 4.h,
+                ),
+                SizedBox(
+                  height: 60.h,
+                  width: double.maxFinite,
+                  child: trendingData.isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : NotificationListener(
+                          onNotification:
+                              (ScrollEndNotification onNotifiaction) {
+                            final before = onNotifiaction.metrics.extentBefore;
+                            final max = onNotifiaction.metrics.maxScrollExtent;
+                            if (max == before) {
+                              print("Done");
+                              ref
+                                  .read(trendingMovieProvider.notifier)
+                                  .loadMore();
+                            }
+                            return true;
+                          },
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: trendingData.movies.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Get.to(DetailPage(
+                                      movie: trendingData.movies[index]));
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 12.w),
+                                  child: CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        "$imageApi${trendingData.movies[index].poster_path}"),
+                                    radius: 24.h,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                )
               ],
             ),
           )

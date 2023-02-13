@@ -50,6 +50,7 @@ class TabBarWidget extends ConsumerWidget {
                         return true;
                       },
                       child: GridView.builder(
+                        cacheExtent: 15000,
                         itemCount: movieData.movies.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -64,6 +65,7 @@ class TabBarWidget extends ConsumerWidget {
                                   DetailPage(movie: movieData.movies[index]));
                             },
                             child: CachedNetworkImage(
+                                key: UniqueKey(),
                                 placeholder: (context, url) => Center(
                                         child: SpinKitFadingCube(
                                       color: Colors.redAccent.withOpacity(0.2),
