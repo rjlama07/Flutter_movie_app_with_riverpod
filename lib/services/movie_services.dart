@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:movie/exception/dio_exception.dart';
 import 'package:movie/model/movie.dart';
 import 'package:movie/resources/constrains.dart';
 
@@ -16,7 +17,7 @@ class MovieServices {
           .toList();
       return right(data);
     } on DioError catch (ex) {
-      return Left(ex.message);
+      return Left(DioException.getDioError(ex));
     }
   }
 
@@ -28,6 +29,9 @@ class MovieServices {
       final data = (response.data['results'] as List)
           .map((e) => Movie.fromJson(e))
           .toList();
+      if (data.isEmpty) {
+        return const Left("empty");
+      }
       return right(data);
     } on DioError catch (ex) {
       return Left(ex.message);

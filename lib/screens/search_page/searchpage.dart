@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:movie/data_provider/search_provider.dart';
 import 'package:movie/screens/details_page/details_page.dart';
+import 'package:movie/widget/no_reasult.dart';
 import 'package:movie/widget/shimmer_effect.dart';
 
 import '../../resources/constrains.dart';
@@ -48,7 +49,9 @@ class SearchPage extends ConsumerWidget {
                   child: searchdData.isLoading
                       ? const ShimmerContainer()
                       : searchdData.isError
-                          ? Center(child: Text(searchdData.errorMessage))
+                          ? !searchdData.errorMessage.contains("empty")
+                              ? Center(child: Text(searchdData.errorMessage))
+                              : const NoReasult()
                           : GridView.builder(
                               itemCount: searchdData.movies.length,
                               gridDelegate:
