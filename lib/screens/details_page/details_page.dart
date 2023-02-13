@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +28,10 @@ class DetailPage extends ConsumerWidget {
             height: 120.h,
             width: double.infinity,
             child: videoData.when(
-              data: (data) => MovieImage(keys: data[0]),
+              data: (data) => data.isNotEmpty
+                  ? MovieImage(keys: data[0])
+                  : CachedNetworkImage(
+                      imageUrl: "$imageApi${movie.poster_path}"),
               error: (error, stackTrace) => Container(),
               loading: () => Container(),
             ),
@@ -68,7 +72,6 @@ class DetailPage extends ConsumerWidget {
                             final before = onNotifiaction.metrics.extentBefore;
                             final max = onNotifiaction.metrics.maxScrollExtent;
                             if (max == before) {
-                              print("Done");
                               ref
                                   .read(trendingMovieProvider.notifier)
                                   .loadMore();

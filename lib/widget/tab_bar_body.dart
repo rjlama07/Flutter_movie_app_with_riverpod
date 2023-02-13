@@ -50,7 +50,6 @@ class TabBarWidget extends ConsumerWidget {
                         return true;
                       },
                       child: GridView.builder(
-                        cacheExtent: 15000,
                         itemCount: movieData.movies.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
