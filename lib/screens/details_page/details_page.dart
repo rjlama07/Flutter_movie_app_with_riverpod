@@ -29,17 +29,13 @@ class DetailPage extends ConsumerWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 120.h,
-              width: double.infinity,
-              child: videoData.when(
-                data: (data) => data.isNotEmpty
-                    ? MovieImage(keys: data[0])
-                    : CachedNetworkImage(
-                        imageUrl: "$imageApi${movie.poster_path}"),
-                error: (error, stackTrace) => Container(),
-                loading: () => Container(),
-              ),
+            videoData.when(
+              data: (data) => data.isNotEmpty
+                  ? MovieImage(keys: data[0])
+                  : CachedNetworkImage(
+                      imageUrl: "$imageApi${movie.poster_path}"),
+              error: (error, stackTrace) => Container(),
+              loading: () => Container(),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
