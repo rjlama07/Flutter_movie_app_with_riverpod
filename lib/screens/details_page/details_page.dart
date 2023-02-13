@@ -85,13 +85,15 @@ class DetailPage extends ConsumerWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  Get.to(DetailPage(
-                                      movie: trendingData.movies[index]));
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        DetailPage(movie: movie),
+                                  ));
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(right: 12.w),
                                   child: CircleAvatar(
-                                    backgroundImage: NetworkImage(
+                                    backgroundImage: CachedNetworkImageProvider(
                                         "$imageApi${trendingData.movies[index].poster_path}"),
                                     radius: 24.h,
                                   ),
