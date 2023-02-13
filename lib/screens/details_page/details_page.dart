@@ -8,7 +8,6 @@ import 'package:movie/data_provider/video_provider.dart';
 import 'package:movie/resources/constrains.dart';
 import 'package:movie/screens/home_page.dart';
 import 'package:pod_player/pod_player.dart';
-
 import '../../model/movie.dart';
 
 class DetailPage extends ConsumerWidget {
@@ -94,9 +93,9 @@ class DetailPage extends ConsumerWidget {
                                 return InkWell(
                                   onTap: () {
                                     Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          DetailPage(movie: movie),
+                                        .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => DetailPage(
+                                          movie: trendingData.movies[index]),
                                     ));
                                   },
                                   child: Container(
@@ -138,7 +137,7 @@ class _MovieImageState extends State<MovieImage> {
         playVideoFrom: PlayVideoFrom.youtube(
             "https://www.youtube.com/watch?v=${widget.keys}"),
         podPlayerConfig:
-            const PodPlayerConfig(autoPlay: true, isLooping: false))
+            const PodPlayerConfig(autoPlay: false, isLooping: false))
       ..initialise();
     super.initState();
   }
