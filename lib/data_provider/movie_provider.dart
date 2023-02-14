@@ -126,3 +126,33 @@ class TrendingMovie extends StateNotifier<MovieState> {
 
 final trendingMovieProvider = StateNotifierProvider<Upcomming, MovieState>(
     (ref) => Upcomming(defaultState));
+
+class Recommanded extends StateNotifier<MovieState> {
+  Recommanded(super.state) {
+    // getMovieByCategory();
+  }
+  Future<void> getMovieByCategory(String movieId) async {
+    state = state.copyWith(
+        isLoading: state.isLoaded ? false : true, isError: false);
+    final resonse = await MovieServices().getData(
+        api: "https://api.themoviedb.org/3/movie/$movieId/recommendations",
+        page: state.page);
+    resonse.fold((l) {
+      state = state.copyWith(isError: true, errorMessage: l, isLoading: false);
+    }, (r) {
+      state = state.copyWith(
+          isError: false,
+          errorMessage: "",
+          isLoading: false,
+          movies: [...state.movies, ...r]);
+    });
+  }
+
+  Future<void> loadMore() async {
+    state = state.copyWith(isLoaded: true, page: state.page + 1);
+    // getMovieByCategory();
+  }
+}
+
+final recommandedProvider = StateNotifierProvider<Recommanded, MovieState>(
+    (ref) => Recommanded(defaultState));

@@ -22,24 +22,3 @@ class VideoProvider {
 
 final videoProvider =
     FutureProvider.family((ref, String id) => VideoProvider.getVideo(id));
-
-class Recommanded {
-  static Future<List<String>> getVideo(String movieId) async {
-    final dio = Dio();
-    try {
-      final response = await dio.get(
-          " https://api.themoviedb.org/3/movie/$movieId/recommendations",
-          queryParameters: {'api_key': apiKey});
-
-      final data = (response.data['results'] as List)
-          .map((e) => e['key'] as String)
-          .toList();
-      return data;
-    } on DioError catch (err) {
-      throw err.message;
-    }
-  }
-}
-
-final recommandedProvider =
-    FutureProvider.family((ref, String id) => Recommanded.getVideo(id));
