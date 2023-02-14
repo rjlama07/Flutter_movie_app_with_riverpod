@@ -11,5 +11,6 @@ const String upComming = "$baseUrl/3/movie/upcoming";
 const String topRatedMovie = "$baseUrl/3/movie/top_rated";
 const String searchMovie = "$baseUrl/3/search/movie";
 const String trendingMovie = "$baseUrl/3/trending/all/day";
-
+const String recommendedMovie = "$baseUrl/3/movie/recommendations";
 ///API URL PATTERN=baseurl+endpoint+apiKey
+// https://api.themoviedb.org/3/movie/{movie_id}/recommendations

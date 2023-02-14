@@ -17,16 +17,14 @@ class DetailPage extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final videoData = ref.watch(videoProvider(movie.id.toString()));
     final trendingData = ref.watch(trendingMovieProvider);
-    return WillPopScope(
-      onWillPop: () async {
-        Get.offAll(const HomePage());
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(movie.title),
-        ),
-        body: Column(
+    final recommandedMovies =
+        ref.watch(recommandedProvider(movie.id.toString()));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(movie.title),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             videoData.when(
@@ -60,7 +58,7 @@ class DetailPage extends ConsumerWidget {
                         TextStyle(fontSize: 40.sp, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: 4.h,
+                    height: 1.h,
                   ),
                   SizedBox(
                     height: 60.h,
@@ -99,13 +97,32 @@ class DetailPage extends ConsumerWidget {
                                     child: CircleAvatar(
                                       backgroundImage: CachedNetworkImageProvider(
                                           "$imageApi${trendingData.movies[index].poster_path}"),
-                                      radius: 24.h,
+                                      radius: 20.h,
                                     ),
                                   ),
                                 );
                               },
                             ),
                           ),
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  recommandedMovies.when(
+                    data: (data) => Container(
+                      height: 100.h,
+                      width: double.maxFinite,
+                      color: Colors.green,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return Text("true");
+                        },
+                      ),
+                    ),
+                    error: (error, stackTrace) => Text(error.toString()),
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   )
                 ],
               ),
