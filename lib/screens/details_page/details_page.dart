@@ -12,6 +12,7 @@ import '../../model/movie.dart';
 class DetailPage extends ConsumerWidget {
   const DetailPage({super.key, required this.movie});
   final Movie movie;
+
   @override
   Widget build(BuildContext context, ref) {
     final videoData = ref.watch(videoProvider(movie.id.toString()));
